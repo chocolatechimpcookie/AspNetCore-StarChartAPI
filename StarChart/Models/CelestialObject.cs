@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StarChart
+namespace StarChart.Models
 {
   public class CelestialObject
   {
@@ -11,7 +11,9 @@ namespace StarChart
     [Required]
     public string Name {get; set;}
     public int? OrbitedObjectId {get; set;}
-    // public List<CelestialObject> Satellites;
+    [NotMapped]
+    public List<CelestialObject> Satellites;
+    public TimeSpan OrbitalPeriod;
 
   }
 }
