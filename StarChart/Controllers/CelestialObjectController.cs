@@ -71,5 +71,29 @@ namespace StarChart.Controllers
       return CreatedAtRoute("GetById", new {id = celestialObject.Id}, celestialObject);
     }
 
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, CelestialObject celestialObject)
+    {
+
+      //This method should locate the CelestialObject with an Id that matches the provided int parameter.
+      var existingObject = _context.CelestialObjects.Find(id);
+
+      if (existingObject == null)
+        return NotFound();
+
+      //If a match is found set it's Name, OrbitalPeriod, and OrbitedObject properties
+      //based on the provided CelestialObject parameter. Call Update on the CelestialObjects
+      //DbSet with an argument of the updated CelestialObject, and then call SaveChanges.
+      existingObject.Name = celestialObject.Name;
+      existingObject.OrbitalPeriod = celestialObject.OrbitalPeriod;
+      existingObject.OrbitalObjectId = celestialObject.OrbitalObjectId;
+
+      _context.CelestialObjects.Update();
+      _context.SaveChanges();
+
+      return NoContent();
+
+    }
+
   }
 }
