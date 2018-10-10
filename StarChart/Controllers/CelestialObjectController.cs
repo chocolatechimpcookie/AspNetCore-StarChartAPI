@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using StarChart.Data;
 using StarChart.Models;
 using System.Linq;
@@ -86,13 +88,19 @@ namespace StarChart.Controllers
       //DbSet with an argument of the updated CelestialObject, and then call SaveChanges.
       existingObject.Name = celestialObject.Name;
       existingObject.OrbitalPeriod = celestialObject.OrbitalPeriod;
-      existingObject.OrbitalObjectId = celestialObject.OrbitalObjectId;
+      existingObject.OrbitedObjectId = celestialObject.OrbitedObjectId;
 
-      _context.CelestialObjects.Update();
+      _context.CelestialObjects.Update(existingObject);
       _context.SaveChanges();
 
       return NoContent();
 
+    }
+
+
+    public IActionResult RenameObject()
+    {
+      return NoContent();
     }
 
   }
